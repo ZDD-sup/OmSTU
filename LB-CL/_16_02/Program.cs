@@ -4,16 +4,34 @@
     {
         static void Main(string[] args)
         {
-
+            Person person = new Person();
+            var list = new List<Person>();
+            void Menu()
+            {
+                Console.Write("- - - Меню - - -\n1) Указать нового преподователя.\n2) Показать преподователей.\n->");
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.D1:
+                        Console.WriteLine();
+                        person.Input();
+                        list.Add(person.people);
+                        break;
+                    case ConsoleKey.D2:
+                        break;
+                    default:
+                        Menu();
+                        break;
+                }
+            }
+            Menu();
         }
-        class Persn
+        class Person
         {
             //private string Name;//ФИО
             //private string Date;//дата рождения
             //private string Education;//где образование
             //private string Item;//предмет
             public List<string> people = new List<string>();
-            private List<string> history = new List<string>();
             public void Input()
             {
                 Console.Write("Введите ФИО учителя: ");
@@ -29,16 +47,15 @@
                 {
                     Employment_history();
                 }
-                people.AddRange(history);
             }
             private void Employment_history()
             {
                 Console.Write("Начало работы: ");
-                history.Add(Convert.ToString(Console.ReadLine()));
+                people.Add(Convert.ToString(Console.ReadLine()));
                 Console.Write("Увольнение: ");
-                history.Add(Convert.ToString(Console.ReadLine()));
+                people.Add(Convert.ToString(Console.ReadLine()));
                 Console.Write("Наименование организации: ");
-                history.Add(Convert.ToString(Console.ReadLine()));
+                people.Add(Convert.ToString(Console.ReadLine()));
             }
         }
     }
