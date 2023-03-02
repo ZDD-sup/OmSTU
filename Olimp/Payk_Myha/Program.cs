@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             double A, B, C, Sx, Sy, Sz, Fx, Fy, Fz, result;
-
+            //a - ширина b - глубина(длина) c - высота
             string path = "D:/OmSTU/Olimp/Payk_Myha/Паук и муха/input_s1_03.txt";
             using (StreamReader  sr = new StreamReader(path))
             {
