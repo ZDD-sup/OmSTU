@@ -201,7 +201,7 @@ namespace _16_02
                 Console.Write("Укажите организацию: ");
                 string org = Convert.ToString(Console.ReadLine());
                 books.Add(new Book(date_ins, date_del, org));
-                Console.Write("Указать стаж(Enter - да, Space - нет)\n->")
+                Console.Write("Указать стаж(Enter - да, Space - нет)\n->");
             }
             list.Add(new Person(Name, Date, Edu, Item, books));
         }
