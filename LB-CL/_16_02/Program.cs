@@ -104,7 +104,7 @@ namespace _16_02
                             break;
                         case ConsoleKey.D4://вывод всех сотрудников
                             Print_all();
-                            Console.Write("\nДля выходда в меню нажмите Enter");
+                            Console.Write("\nДля выхода в меню нажмите Enter");
                             Console.ReadKey();
                             Main();
                             break;
@@ -162,6 +162,7 @@ namespace _16_02
                         "Общий стаж: " + date_all.ToString("d"));
             }
         }
+
         static public void Print_all()
         {
             Console.Clear();
@@ -180,7 +181,7 @@ namespace _16_02
                 Console.WriteLine("<------------------------------------>");
             }
         }
-        static public void Input()//заполнение данныз препода
+        static public void Input()//заполнение данных препода
         {
             List<Book> books = new List<Book>();
             Console.Write("Укажите ФИО: ");

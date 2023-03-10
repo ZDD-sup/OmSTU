@@ -18,24 +18,7 @@ namespace _02_03
         
         static void Main()
         {
-            list.ForEach(element =>
-            {
-                if (element.Type == 1)
-                {
-                    Console.WriteLine(element.Name);
-                }
-                else if (element.Type == 2)
-                {
-                    Console.WriteLine(element.Name);
-
-                }
-                else if (element.Type == 3)
-                {
-                    Console.WriteLine(element.Name);
-
-                }
-            });
-            Console.Write("---Меню---\n1. Добавить нового работника\n2. Выборка работников\n->");
+            Console.Write("---Меню---\n1. Добавить нового работника\n2. Выборка работников\n3. Вызод\n->");
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.D1://добавить нового сотрудника
@@ -59,29 +42,123 @@ namespace _02_03
                 case ConsoleKey.D2://выборка
                     switch(Console.ReadKey().Key)
                     {
-                        case ConsoleKey.D1:
+                        case ConsoleKey.D1://общий стаж
+                            Console.Write("\n1. Указать общий стаж\n2. В меню\n->");
+                            while (Console.ReadKey().Key == ConsoleKey.D1)
+                            {
+                                Console.Clear();
+                                Console.Write("Стаж(##.##.####): ");
+                                Print_date_work_all(Convert.ToString(Console.ReadLine()));
+                                Console.Write("\n1. Указать общий стаж\n2. В меню\n->");
+                            }
                             break;
-                        case ConsoleKey.D2:
+                        case ConsoleKey.D2://стаж последней работы
+                            Console.Write("\n1. Указать прошлый срок работы\n2. В меню\n->");
+                            while (Console.ReadKey().Key == ConsoleKey.D1)
+                            {
+                                Console.Clear();
+                                Console.Write("Стаж(##.##.####): ");
+                                Print_date_work(Convert.ToString(Console.ReadLine()));
+                                Console.Write("\n1. Указать стаж\n2. В меню\n->");
+                            }
+                            Main();
                             break;
-                        case ConsoleKey.D3:
+                        case ConsoleKey.D3://количество опечатаных экземпляров
+                            Console.Write("\n1. Указать количество экземпляров за день\n2. В меню\n->");
+                            while (Console.ReadKey().Key == ConsoleKey.D1)
+                            {
+                                Console.Clear();
+                                Console.Write("Введите количество экземпляров: ");
+                                Print_copy(Console.ToInt32(Console.ReadLine()));
+                                Console.Write("\n1. Указать количество экземпляров за день\n2. В меню\n->");
+                            }
+                            Main();
                             break;
-                        case ConsoleKey.D4:
+                        case ConsoleKey.D4://
                             break;
-                        case ConsoleKey.D5:
+                        case ConsoleKey.D5://все приказы опр лицом
+                            Console.Write("\n1. Указать ФИО\n2. В меню\n->");
+                            while (Console.ReadKey().Key == ConsoleKey.D1)
+                            {
+                                Console.Clear();
+                                Console.Write("Укажите ФИО: ");
+                                Print_Dexres(Convert.ToString(Console.ReadLine()));
+                                Console.Write("\n1. Указать ФИО\n2. В меню\n->");
+                            }
+                            Main();
                             break;
                         default:
+                            Main();
                             break;
                     }
                     break;
+                case ConsoleKey.D3:
+                    break;
                 default:
+                    Main();
                     break;
             }
-            Console.Clear();
-            Main();
+            Console.WriteLine("\nДосвидание!");
             Console.ReadKey();
         }
-
-
+        static public void Print_Dexres(string NAME)
+        {
+            foreach(Person person in list)
+            {
+                if (person.Name == NAME)
+                {
+                    foreach (Manage manage in person)
+                    {
+                        Console.WriteLine(
+                            "Приказ №" + manage.number +
+                            "Дата приказа: " + manage.date);
+                    }
+                    break;
+                }
+            }
+        }
+        static public void Print_copy(int N)
+        {
+            foreach(Person person in list)
+            {
+                if (person.Quantity == N)
+                    Console.WriteLine(
+                        "ФИО: " + person.Name +
+                        "Количество экземпляров: " + person.Quantity);
+            }
+        }
+        static public void Print_date_work(string DATE)
+        {
+            foreach (Person person in list)
+            {
+                //string date_ins = person.Book[0].date_inst;
+                var Date_ins = DateTime.Parse(person.Book[0].date_inst);
+                var Date_del = DateTime.Parse(person.Book[0].date_del);
+                var Date = Date_del.Subtract(Date_ins);
+                if (Convert.ToString(Date) == DATE)
+                    Console.WriteLine(
+                        "ФИО: " + person.Name +
+                        "Стаж: " + Date.ToString("d"));
+            }
+        }
+        static public void Print_date_work_all(string DATE)
+        {
+            foreach (Person person in list)
+            {
+                DateTime date_all = new DateTime(0000, 00, 00);
+                foreach (Book book in person.Book)
+                {
+                    var Date_ins = DateTime.Parse(book.date_inst);
+                    var Date_del = DateTime.Parse(book.date_del);
+                    var Date = Date_del.Subtract(Date_ins);
+                    date_all = date_all + Date;
+                }
+                if (Convert.ToString(date_all) == DATE)
+                    Console.WriteLine(
+                        "ФИО: " + person.Name +
+                        "Общий стаж: " + date_all.ToString("d"));
+            }
+        }
 
         static public void Manager(int A)//управленец
         {
@@ -215,9 +292,9 @@ namespace _02_03
     }
     public class Book//макет трудовой книжки
     {
-        private string Startwork;
-        private string Endwork;
-        private string Work;
+        public string Startwork;
+        public string Endwork;
+        public string Work;
         public Book (string Startwork, string Endwork, string Work)
         {
             this.Startwork = Startwork;
@@ -227,8 +304,8 @@ namespace _02_03
     }
     public class Manage// : Person//макет указов
     {
-        private string date;
-        private int number;
+        public string date;
+        public int number;
         public Manage(string date, int number)//, string Name, string Job, List<Book> BooK) : base(Name, Job, BooK)
         {
             this.date = date;
@@ -237,7 +314,7 @@ namespace _02_03
     }
     public class Average// : Person//количество указов для среднего уровня
     {
-        private int Quantity;
+        public int Quantity;
         public Average(int quantity)
         {
             this.Quantity = quantity;
@@ -245,8 +322,8 @@ namespace _02_03
     }
     public class Low// : Person//выполненая работа дата\/описание работы
     {
-        private string date;
-        private string works;
+        public string date;
+        public string works;
         public Low(string date, string works)
         {
             this.date = date;
