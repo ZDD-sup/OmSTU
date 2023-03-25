@@ -69,7 +69,7 @@ namespace _02_03
                             {
                                 Console.Clear();
                                 Console.Write("Введите количество экземпляров: ");
-                                Print_copy(Console.ToInt32(Console.ReadLine()));
+                                Print_copy(Convert.ToInt32(Console.ReadLine()));
                                 Console.Write("\n1. Указать количество экземпляров за день\n2. В меню\n->");
                             }
                             Main();
