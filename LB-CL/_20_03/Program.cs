@@ -119,7 +119,7 @@ namespace _20_03
                     break;
                 case ConsoleKey.D0:
                     Console.Clear();
-                    //ehashset();
+                    hashset();
                     Console.Write("Для возражения в меню нажмите \"E\"\n-> ");
                     Console.ReadKey();
                     Main();
@@ -594,7 +594,77 @@ namespace _20_03
         {
             Console.WriteLine("<" + new string('_', 45) + "HashSet" + new string('_', 45) + ">");
 
+            HashSet<string> hash = new HashSet<string>();
 
+            tere();
+            hash.Add("Apple");
+            hash.Add("Samsung");
+            hash.Add("Apple");
+            hash.Add("Huawe");
+            hash.Add("Mi");
+            Console.WriteLine("Добавляет указанный элемент в набор hash.Add(\"Huawe\")");
+            foreach (var s in hash) { Console.WriteLine(s); }
+
+            tere();
+            Console.WriteLine("Определяет, содержит ли объект HashSet<T> указанный элемент hash.Contains(\"Apple\") -> " + hash.Contains("Apple"));
+
+            tere();
+            Console.WriteLine("Копирует элементы объекта HashSet<T> в массив, начиная с указанного индекса массива hash.CopyTo(mas, 1)");
+            var mas = new string[hash.Count*2];
+            hash.CopyTo(mas, 1);
+            Console.WriteLine("Вывод массива mas");
+            for(int i = 0; i < mas.Length; i++){ Console.WriteLine($"[{i}]: {mas[i]}"); }
+
+            tere();
+            HashSet<string> list = new HashSet<string> { "Apple", "Nuke", "Mi", "Joom" };
+            Console.WriteLine("Удаляет все элементы в указанной коллекции из текущего объекта HashSet<T> hash.ExceptWith(list");
+            Console.WriteLine("list: Apple, Nuke, Mi, Joom");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            hash.ExceptWith(list);
+            Console.Write(" --> ");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.WriteLine();
+
+            tere();
+            hash.Add("Mi");
+            hash.Add("Apple");
+            Console.WriteLine("Изменяет текущий объект HashSet<T> так, чтобы он содержал только элементы, которые имеются в этом\nобъекте и в указанной коллекции hash.IntersectWith(list)");
+            Console.WriteLine("list: Apple, Nuke, Mi, Joom");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            hash.IntersectWith(list);
+            Console.Write(" --> ");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.WriteLine();
+            
+            tere();
+            hash.Add("Mi");
+            hash.Add("Apple");
+            Console.WriteLine("Определяет, является ли объект HashSet<T> подмножеством указанной коллекции\nhash.IsSubsetOf(list) -> " + hash.IsSubsetOf(list));
+            Console.WriteLine("\nОпределяет, является ли объект HashSet<T> супермножеством указанной коллекции\nhash.IsSupersetOf(list) -> " + hash.IsSupersetOf(list));
+            Console.WriteLine("\nОпределяет, имеются ли общие элементы в текущем объекте HashSet<T> и в указанной коллекции\nhash.Overlaps(list) -> " + hash.Overlaps(list));
+            Console.WriteLine("\nОпределяет, содержат ли объект HashSet<T> и указанная коллекция одни и те же элементы -> " + hash.SetEquals(list));
+            Console.WriteLine("list: Apple, Nuke, Mi, Joom");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.WriteLine();
+
+            tere();
+            Console.WriteLine("Удаляет указанный элемент из объекта HashSet<T> hash.Remove(\"Mi\")");
+            hash.Remove("Mi");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.WriteLine();
+
+            tere();
+            Console.WriteLine("Изменяет текущий объект HashSet<T> так, чтобы он содержал только элементы, которые имеются либо в этом\nобъекте, либо в указанной коллекции, но не одновременно в них обоих");
+            Console.Write("hash до: ");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.Write("\nlist: ");
+            foreach (var l in list) { Console.Write(l + ", "); }
+            hash.SymmetricExceptWith(list);
+            Console.Write("\n hash после: ");
+            foreach (var l in hash) { Console.Write(l + ", "); }
+            Console.WriteLine();
+
+            tere();
 
             void tere()
             {
