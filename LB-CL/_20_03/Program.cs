@@ -70,7 +70,7 @@ namespace _20_03
                     break;
                 case ConsoleKey.D3:
                     Console.Clear();
-                    //hashtable();
+                    hashtable();
                     Console.Write("Для возражения в меню нажмите \"E\"\n-> ");
                     Console.ReadKey();
                     Main();
@@ -132,13 +132,13 @@ namespace _20_03
             }
         }
 
-        //static public void array()
-        //{
-        //    Array mas = Array.CreateInstance(typeof(string), 5);// 5 элементов типо стринг
-        //    void Fill<Array> (mas, "Kate");
-        //    Console.WriteLine($"mas.GetLength -> {mas.GetLength}");
-        //    Console.WriteLine($"mas.GetValue(4) -> {mas.GetValue(4)}");
-        //}
+        static public void array()
+        {
+            Array mas = Array.CreateInstance(typeof(string), 5);// 5 элементов типо стринг
+            
+
+
+        }
 
         static public void arraylist()
         {
@@ -213,20 +213,48 @@ namespace _20_03
             Console.WriteLine("<" + new string('-', 45) + "Hashtable" + new string('-', 45) + ">");
             Hashtable table = new Hashtable();
 
-            Student stud1 = new Student(1, "Dima", 19);
-            Student stud2 = new Student(2, "Mr.Enot", 35);
-            Student stud3 = new Student(3, "Ms.Kat", 30);
-            Student stud4 = new Student(4, "Enot", 5);
-
-            table.Add(stud1.id, stud1);
-            table.Add(stud2.id, stud2);
-            table.Add(stud3.id, stud3);
-            table.Add(stud4.id, stud4);
+            table.Add(1, "Dima");
+            table.Add(2, "Mr.Enot");
+            table.Add(3, "Ms.Kat");
+            table.Add(4, "Enot");
 
             tere();
-            Console.WriteLine("Чтение информации table[1].ToString() -> ");
+            Console.WriteLine("Добавляет элемент с указанными ключом и значением в словарь Hashtable table.Add(4, \"Enot\")");
+            Print();
 
+            tere();
+            Console.WriteLine("Определяет, содержит ли объект Hashtable указанный ключ table.ContainsKey(2) -> " + table.ContainsKey(2));
+            Console.WriteLine("Определяет, содержит ли коллекция Hashtable указанное значение table.ContainsValue(\"Enot\") -> " + table.ContainsValue("Enot"));
 
+            tere();
+            var keyhash = new int[table.Count * 2];
+            var valyehash = new string[table.Count * 2];
+            Console.WriteLine("Копирует элементы коллекции Hashtable в экземпляр класса одномерного массива Array по указанному индексу");
+            Console.Write("Массив ключей table.Keys.CopyTo(keyhash, 0) keyhash -> ");
+            table.Keys.CopyTo(keyhash, 0);
+            foreach (var m in keyhash) { Console.Write(m + ", "); }
+            Console.Write("\nМассив объектов table.Values.CopyTo(valyehash, 0) valyehash -> ");
+            table.Values.CopyTo(valyehash, 0);
+            foreach (var m in valyehash) { Console.Write(m + ", "); }
+            Console.WriteLine();
+
+            //tere();
+            //Console.WriteLine("Возвращает хэш-код указанного ключа table.GetHashCode(2) -> " + table.GetHash(2));
+
+            //tere();
+            //Console.WriteLine("Сравнивает указанный объект класса Object с указанным ключом, который содержится в коллекции Hashtable." + table.KeyEquals(1,1));
+
+            tere();
+            Console.WriteLine("Удаляет элемент с указанным ключом из Hashtable table.Remove(2)");
+            table.Remove(2);
+            Print();
+            tere();
+
+            void Print()
+            {
+                Console.WriteLine("Key\tValye"); 
+                foreach (DictionaryEntry di in table) { Console.WriteLine($"{di.Key}:\t{di.Value}"); }
+            }
             void tere()
             {
                 Console.WriteLine("<" + new string('-', 100) + ">");
