@@ -9,25 +9,6 @@ List
 Dictionary
 SortedDictionary
 HashSet
- array(); // -
-
-            arraylist(); // +
-
-            hashtable(); // -
-
-            sorteblist(); // +
-
-            stack(); // + -
-
-            queue(); // +
-
-            list(); // +
-
-            dictionary(); // +
-
-            sorteddictionary(); // +
-
-            hashset(); // -
  */
 
 using System.Collections;
@@ -56,7 +37,7 @@ namespace _20_03
             {
                 case ConsoleKey.D1:
                     Console.Clear();
-                    //array();
+                    array();
                     Console.Write("Для возражения в меню нажмите \"E\"\n-> ");
                     Console.ReadKey();
                     Main();
@@ -134,10 +115,62 @@ namespace _20_03
 
         static public void array()
         {
-            Array mas = Array.CreateInstance(typeof(string), 5);// 5 элементов типо стринг
+            Console.WriteLine("<" + new string('_', 45) + "Array" + new string('_', 45) + ">");
+
+            Array mas = Array.CreateInstance(typeof(string), 6);// 5 элементов типо стринг
+            mas.SetValue("Dima", 0);
+            mas.SetValue("Kate",1);
+            mas.SetValue("Mr.Enot",2);
+            mas.SetValue("En",3);
+            mas.SetValue("Mr.Enot",4);
+            mas.SetValue("Bekon",5);
+            Console.WriteLine("Присваивает заданному элементу текущего массива Array заданное значение mas.SetValue(\"Bekon\",4)");
+            Print();
+            tere();
+
+            Console.WriteLine("Возвращает значение указанного элемента в текущем массиве Array mas.GetValue(2) -> " + mas.GetValue(2));
+            tere();
+
+            Console.WriteLine("Выполняет поиск указанного объекта и возвращает индекс первого найденного совпадения в одномерном\nмассиве или диапазоне элементов массива mas.IndexOf(string, \"Mr.Enot\") -> " + Array.IndexOf(mas, "Mr.Enot"));
+            tere();
+
+            Console.WriteLine("Выполняет поиск с конца указанного объекта и возвращает индекс первого найденного совпадения в одномерном\nмассиве или диапазоне элементов массива Array.LastIndexOf(mas, \"Mr.Enot\") -> " + Array.LastIndexOf(mas, "Mr.Enot"));
+            tere();
+
+            Console.WriteLine("Копирование массива Array в тругой массив с определённого индекса mas.CopyTo(copy, 2)");
+            string[] copy = new string[mas.Length * 2];
+            mas.CopyTo(copy, 2);
+            Console.WriteLine("Вывод массива cope");
+            for (int i = 0; i < copy.Length; i++) { Console.WriteLine($"[{i}]: {copy[i]}"); }
+            tere();
+
+            Console.WriteLine("Сортирует массив Array по определённому смыслу Array.Sort(mas)");
+            Array.Sort(mas);
+            Print();
+            tere();
+
+            Console.WriteLine("Переворачивает массив Array.Reverse(mas)");
+            Array.Reverse(mas);
+            Print();
+            tere();
+
+            Console.WriteLine("Длина массива Array mas.Length -> " + mas.Length);
+            tere();
+
+            Console.WriteLine("Очищение всего массива Array ");
+            Array.Clear(mas);
+            Print();
+            tere();
             
 
-
+            void Print()
+            {
+                for (int i = 0; i <= mas.GetUpperBound(0); i++) { Console.WriteLine($"[{i}]: {mas.GetValue(i)}"); }
+            }
+            void tere()
+            {
+                Console.WriteLine("\n<" + new string('-', 100) + ">");
+            }
         }
 
         static public void arraylist()
@@ -698,18 +731,6 @@ namespace _20_03
             {
                 Console.WriteLine("<" + new string('-', 100) + ">");
             }
-        }
-    }
-    class Student // для hashtable
-    {
-        public int id;
-        public string name;
-        public int age;
-        public Student(int id, string name, int age)
-        {
-            this.id = id;
-            this.name = name;
-            this.age = age;
         }
     }
 }
