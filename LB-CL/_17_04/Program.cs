@@ -1,20 +1,37 @@
 ﻿namespace _17_04
 {
-    internal class Program
-    {
-        static void Main()
-        {
+    public delegate void EventDelegate(double x, double y);
 
+    public class MyEvent
+    {
+        public event EventDelegate myEvent;
+
+        public void Invoke(double x, double y)
+        {
+            myEvent.Invoke(x, y);
         }
     }
-    class Ac
+
+    internal class Program
     {
-        public delegate void Deleg(double x, double y);
-        public double Sum(double x, double y) => x + y;
-        public double Diff(double x, double y) => x - y;
-        public double Mult(double x, double y) => x * y;
-        public double Div(double x, double y) => x / y;
+        static public void Sum(double x, double y) => Console.WriteLine(x + y);
+        static public void Diff(double x, double y) => Console.WriteLine(x - y);
+        static public void Mult(double x, double y) => Console.WriteLine(x * y);
+        static public void Div(double x, double y) => Console.WriteLine(x / y);
+
+        static void Main()
+        {
+            double x = Convert.ToDouble(Console.ReadLine());
+            double y = Convert.ToDouble(Console.ReadLine());
+            MyEvent cal = new MyEvent();
+            cal.myEvent += new EventDelegate(Sum);
+            cal.myEvent += Diff;
+            cal.myEvent += Mult;
+            cal.myEvent += Div;
 
 
+            cal.Invoke(x, y);
+            Console.ReadKey();
+        }
     }
 }
