@@ -4,50 +4,71 @@
     {
         static void Main(string[] args)
         {
-            double A, B, C, Sx, Sy, Sz, Fx, Fy, Fz, result;
-            //a - ширина b - глубина(длина) c - высота
             string path = "D:/OmSTU/Olimp/Payk_Myha/Payk_and_Myha/input_s1_03.txt";
-            using (StreamReader  sr = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
-                string[] line = sr.ReadLine().Split(new char[] { ' ' });
-                A = int.Parse(line[0]);
-                B = int.Parse(line[1]);
-                C = int.Parse(line[2]);
-                line = sr.ReadLine().Split(new char[] { ' ' });
-                Sx = int.Parse(line[0]);
-                Sy = int.Parse(line[1]);
-                Sz = int.Parse(line[2]);
-                line = sr.ReadLine().Split(new char[] { ' ' });
-                Fx = int.Parse(line[0]);
-                Fy = int.Parse(line[1]);
-                Fz = int.Parse(line[2]);
-            }
-            // Расстояние по оси X
-            double dx = Math.Abs(Fx - Sx);
-            if (dx > A / 2)
-            {
-                dx = A - dx;
-            }
+                string? line = "";
+                line = await reader.ReadLineAsync();
+                string[] s = line.Split(' ');
+                int a = Convert.ToInt32(s[0]);
+                int b = Convert.ToInt32(s[1]);
+                int c = Convert.ToInt32(s[1]);
 
-            // Расстояние по оси Y
-            double dy = Math.Abs(Fy - Sy);
-            if (dy > C / 2)
-            {
-                dy = C - dy;
+                line = await reader.ReadLineAsync();
+                int Sx = Convert.ToInt32(line.Split(' ')[0]);
+                int Sy = Convert.ToInt32(line.Split(' ')[1]);
+                int Sz = Convert.ToInt32(line.Split(' ')[2]);
+
+                line = await reader.ReadLineAsync();
+                int Fx = Convert.ToInt32(line.Split(' ')[0]);
+                int Fy = Convert.ToInt32(line.Split(' ')[1]);
+                int Fz = Convert.ToInt32(line.Split(' ')[2]);
+                int fRibr = 0;
+                int tRibr = 0;
+
+
+                if (Sx != Fx && (Sx == a || Sx == 0) && (Fx == a || Fx == 0))
+                {
+                    fRibr = Math.Min(Math.Abs(Sy + Fy), Math.Abs((a - Sy) + (a - Fy))) + Math.Abs(Sx - Fx);
+                    tRibr = Math.Abs(Sz - Fz);
+                }
+                else if (Sy != Fy && (Sy == b || Sy == 0) && (Fy == b || Fy == 0))
+                {
+                    fRibr = Math.Min(Math.Abs(Sx + Fx), Math.Abs((a - Sx) + (a - Fx))) + Math.Abs(Sy - Fy);
+                    tRibr = Math.Abs(Sz - Fz);
+
+                }
+                else if (Sz != Fx && (Sz == c || Sz == 0) && (Fz == c || Fz == 0))
+                {
+                    fRibr = Math.Min(Math.Abs(Sz + Fz), Math.Abs((c - Sx) + (c - Fz))) + Math.Abs(Sy - Fy);
+                    tRibr = Math.Abs(Sx - Fx);
+
+                }
+                else if ((Sx == 0 || Sx == a) && (Fy == 0 || Fy == b) || (Fx == 0 || Fx == a) && (Sy == 0 || Sy == b))
+                {
+                    fRibr = Math.Abs(Sx - Fx) + Math.Abs(Sy - Fy);
+                    tRibr = Math.Abs(Sz - Fz);
+
+                }
+                else if ((Sy == 0 || Sy == b) && (Fz == 0 || Fz == c) || (Fy == 0 || Fy == b) && (Sz == 0 || Sz == c))
+                {
+                    fRibr = Math.Abs(Sz - Fz) + Math.Abs(Sy - Fy);
+                    tRibr = Math.Abs(Sx - Fx);
+
+                }
+
+                else
+                {
+                    fRibr = Math.Abs(Sx - Fx) + Math.Abs(Sz - Fz);
+                    tRibr = Math.Abs(Sy - Fy);
+
+                }
+
+
+                double itog;
+                itog = Math.Pow((Math.Pow(fRibr, 2) + Math.Pow(tRibr, 2)), (1 / 2.0));
+
+                Console.WriteLine(itog);
             }
-
-            // Расстояние по оси Z
-            double dz = Math.Abs(Fz - Sz);
-            if (dz > C / 2)
-            {
-                dz = C - dz;
-            }
-
-            // Вычисление расстояния между пауком и мухой
-            double distance = Math.Sqrt(dx * dx + dy * dy + dz * dz);
-
-            Console.WriteLine("{0:F3}", distance);
-            Console.ReadKey();
         }
-    }
 }
